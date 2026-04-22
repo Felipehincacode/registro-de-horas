@@ -11,11 +11,14 @@ import { PwaInstallHint } from '@/components/pwa-install-hint';
 import { useMovements } from '@/hooks/use-movements';
 import { usePullToRefresh } from '@/hooks/use-pull-to-refresh';
 import { toCsv } from '@/lib/utils';
-import { TimeMovement } from '@/types/time-movement';
+import { MovementType, TimeMovement } from '@/types/time-movement';
+import { useProfile } from '@/hooks/use-profile';
 
 export default function DashboardPage() {
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState<TimeMovement | null>(null);
+  const { isAdmin } = useProfile();
+
   const {
     movements,
     createMovement,
@@ -45,7 +48,10 @@ export default function DashboardPage() {
     setOpen(false);
   };
 
-  const quickActions = [
+  const quickActions: Array<{
+    label: string;
+    payload: { movement_type: MovementType; hours: number };
+  }> = [
     { label: '+1h ganada', payload: { movement_type: 'ganada', hours: 1 } },
     { label: '+2h ganada', payload: { movement_type: 'ganada', hours: 2 } },
     { label: 'reclamar 1h', payload: { movement_type: 'reclamada', hours: 1 } }
@@ -71,6 +77,12 @@ export default function DashboardPage() {
         </div>
       </section>
 
+
+      {isAdmin && (
+        <a href="/admin" className="card block text-center font-medium text-brand-700">
+          Ir a panel admin
+        </a>
+      )}
       <section className="card">
         <p className="text-sm font-medium">Acciones rápidas</p>
         <div className="mt-2 grid grid-cols-2 gap-2">

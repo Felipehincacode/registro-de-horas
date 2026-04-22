@@ -5,10 +5,25 @@ App web personal para registrar horas extra ganadas/reclamadas con experiencia m
 ## Arquitectura (resumen corto)
 
 - **Next.js 14 App Router + TypeScript** para UI y rutas.
-- **Supabase** para auth y base de datos (`time_movements`).
+- **Supabase** para auth, perfiles y base de datos (`time_movements`).
 - **Hook central `useMovements`** para CRUD, métricas y sugerencias.
+- **Panel Admin** para crear usuarios/perfiles (requiere service role key en backend).
 - **UI mobile-first** con bottom nav + FAB + bottom sheet.
 - **PWA** con `manifest.webmanifest` + `next-pwa` (service worker en build de producción).
+
+## Qué necesito de ti para integrar Supabase
+
+1. `NEXT_PUBLIC_SUPABASE_URL`
+2. `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+3. `SUPABASE_SERVICE_ROLE_KEY` (solo backend, para que tu perfil admin pueda crear usuarios)
+4. Tu correo de admin (para asignarte rol `admin` en SQL)
+
+## Login y perfil admin
+
+- Login disponible con **email+password** y **magic link** en `/auth`.
+- Se crea tabla `profiles` con roles `admin|user`.
+- El panel `/admin` permite crear usuarios y definir rol.
+- Solo admins pueden listar perfiles y crear nuevos perfiles/usuarios.
 
 ## Cómo se reduce fricción
 
@@ -67,18 +82,27 @@ Configura:
 ```env
 NEXT_PUBLIC_SUPABASE_URL=...
 NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+SUPABASE_SERVICE_ROLE_KEY=...
 ```
 
 ## Configuración Supabase (SQL)
 
 1. Abre Supabase SQL Editor.
 2. Ejecuta `supabase/schema.sql` completo.
+3. Asigna tu usuario como admin (reemplaza tu correo):
+
+```sql
+update public.profiles
+set role = 'admin'
+where email = 'tu-correo-admin@dominio.com';
+```
 
 Incluye:
-- creación de tabla `time_movements`,
-- índices (`user_id`, `movement_date`, `movement_type`, compuesto),
+- creación de tablas `profiles` y `time_movements`,
+- índices,
 - trigger `updated_at`,
-- RLS + policies CRUD por usuario.
+- trigger para crear perfil al crear usuario auth,
+- RLS + policies (usuario y admin).
 
 ## Ejecutar local
 
@@ -96,6 +120,7 @@ Abrir `http://localhost:3000`.
 3. Configurar env vars en Vercel:
    - `NEXT_PUBLIC_SUPABASE_URL`
    - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+   - `SUPABASE_SERVICE_ROLE_KEY`
 4. Deploy.
 
 ## PWA
@@ -123,3 +148,4 @@ Luego abre en móvil y usa instalar/agregar a inicio.
 - Resumen analítico con tendencias.
 - Exportación CSV.
 - Editar, duplicar, eliminar movimientos.
+- Admin: crear usuarios y gestionar perfiles.

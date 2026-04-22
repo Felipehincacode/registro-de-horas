@@ -53,7 +53,7 @@ export function MovementFormSheet({
 
   useEffect(() => {
     if (defaults) form.reset({ ...form.getValues(), ...defaults });
-  }, [defaults]);
+  }, [defaults, form]);
 
   if (!open) return null;
 
