@@ -65,6 +65,17 @@ export default function DashboardPage() {
     hours: 1
   }), [suggestions]);
 
+  const editingDefaults = editing
+    ? {
+        movement_date: editing.movement_date,
+        movement_type: editing.movement_type,
+        hours: Number(editing.hours),
+        reason: editing.reason,
+        notification_status: editing.notification_status,
+        notes: editing.notes ?? undefined
+      }
+    : undefined;
+
   return (
     <main className="mx-auto max-w-lg p-4 pb-28 space-y-4">
       <PwaInstallHint />
@@ -168,7 +179,7 @@ export default function DashboardPage() {
         onSubmit={save}
         topReasons={suggestions.topReasons}
         recentReasons={suggestions.recentReasons}
-        defaults={editing ?? frequentTemplate}
+        defaults={editingDefaults ?? frequentTemplate}
         onRepeatLast={() => {
           if (lastMovement) {
             setEditing(lastMovement);

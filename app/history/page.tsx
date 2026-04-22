@@ -14,6 +14,17 @@ export default function HistoryPage() {
   const [notification, setNotification] = useState<'all' | 'si' | 'no' | 'pendiente'>('all');
   const [editing, setEditing] = useState<TimeMovement | null>(null);
 
+  const editingDefaults = editing
+    ? {
+        movement_date: editing.movement_date,
+        movement_type: editing.movement_type,
+        hours: Number(editing.hours),
+        reason: editing.reason,
+        notification_status: editing.notification_status,
+        notes: editing.notes ?? undefined
+      }
+    : undefined;
+
   const filtered = useMemo(
     () =>
       movements.filter((m) => {
@@ -59,7 +70,7 @@ export default function HistoryPage() {
         }}
         topReasons={suggestions.topReasons}
         recentReasons={suggestions.recentReasons}
-        defaults={editing ?? undefined}
+        defaults={editingDefaults}
       />
     </main>
   );
