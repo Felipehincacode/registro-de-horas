@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" role="img" aria-label="Horas Extra">
+  <rect width="192" height="192" rx="36" fill="#2563eb"/>
+  <path d="M45 62h102v12H45zm0 28h102v12H45zm0 28h68v12H45z" fill="#fff"/>
+  <circle cx="138" cy="124" r="22" fill="#16a34a"/>
+  <path d="M132 124h12" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+</svg>
