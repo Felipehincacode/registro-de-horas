@@ -2,10 +2,11 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import type { Route } from 'next';
 import { BarChart3, History, Home, WalletCards } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-const items = [
+const items: Array<{ href: Route; label: string; icon: typeof Home }> = [
   { href: '/dashboard', label: 'Inicio', icon: Home },
   { href: '/history', label: 'Historial', icon: History },
   { href: '/reclaimed', label: 'Reclamadas', icon: WalletCards },

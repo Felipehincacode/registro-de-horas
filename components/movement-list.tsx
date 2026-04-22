@@ -12,6 +12,10 @@ interface Props {
   onEdit: (movement: TimeMovement) => void;
 }
 
+type SwipeRowProps = Pick<Props, 'onDuplicate' | 'onDelete' | 'onEdit'> & {
+  movement: TimeMovement;
+};
+
 export function MovementList({ movements, onDuplicate, onDelete, onEdit }: Props) {
   return (
     <div className="space-y-2">
@@ -28,7 +32,7 @@ export function MovementList({ movements, onDuplicate, onDelete, onEdit }: Props
   );
 }
 
-function SwipeRow({ movement, onDuplicate, onDelete, onEdit }: Props & { movement: TimeMovement }) {
+function SwipeRow({ movement, onDuplicate, onDelete, onEdit }: SwipeRowProps) {
   const startX = useRef(0);
   const longPressTimer = useRef<NodeJS.Timeout | null>(null);
 
