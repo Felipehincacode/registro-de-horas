@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Horas Extra Maskable">
+  <rect width="512" height="512" fill="#1d4ed8"/>
+  <rect x="76" y="76" width="360" height="360" rx="72" fill="#2563eb"/>
+  <path d="M150 196h212v24H150zm0 60h212v24H150zm0 60h142v24H150z" fill="#fff"/>
+  <circle cx="345" cy="325" r="46" fill="#16a34a"/>
+  <path d="M332 325h26" stroke="#fff" stroke-width="8" stroke-linecap="round"/>
+</svg>
